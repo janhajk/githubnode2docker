@@ -1,25 +1,23 @@
-# V1.0.0
 FROM node:latest
-
-ENV USERNAME="admin" \
-    PASSWORD="9B*53P5E&SZK" \
-    REP="https://github.com/janhajk/tradetracker.git"
-
-RUN apt-get update && \
-apt-get install -y git
-
-# Create app directory
-WORKDIR /usr/src/app
-
-RUN git clone $REP /usr/src/app
-
-
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Bundle app source
-#COPY . .
-
-EXPOSE 8080
-CMD node app.js 8080 1
+ 
+ENV NODE_VERSION stable
+ENV NPM_SCRIPT start
+ENV GIT_URL https://github.com/janhajk/tradetracker.git
+ENV APP_PORT 8080
+ 
+ENV APP_HOME .
+ENV APP_STARTUP "app.js"
+# JUST_RUN specifies whether node should be installed and git should be cloned
+ENV JUST_RUN N
+ 
+COPY ./docker-work /code
+ 
+WORKDIR /code
+ 
+#RUN chown -R app:app /code/*
+RUN chmod +x /code/bootstrap.sh
+ 
+RUN npm install -g n --silent
+RUN n stable
+ 
+ENTRYPOINT ["/code/bootstrap.sh"]
