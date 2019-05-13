@@ -15,6 +15,7 @@ cd app
  
 cd $APP_HOME
 echo Application Home: $APP_HOME
+echo $PWD
  
 if [ "$JUST_RUN" = "N" ]; then
   if [ "$YARN_INSTALL" = "1" ]; then
