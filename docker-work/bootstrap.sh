@@ -16,8 +16,6 @@ cd app
 cd $APP_HOME
 echo Application Home: $PWD
 
-mount /code/config.js /code/app/config.js
- 
 if [ "$JUST_RUN" = "N" ]; then
   if [ "$YARN_INSTALL" = "1" ]; then
     yarn install --production --silent
